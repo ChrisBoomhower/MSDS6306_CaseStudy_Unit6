@@ -10,12 +10,12 @@ require(downloader)
 require(ggplot2)
 require(tidyr)
 
-## Verify current working directory ##
-getwd()
-setwd("Analysis//Data")
-getwd()
+## Verify current working directory
+# getwd()
+# setwd("Analysis//Data")
+# getwd()
 
-## Download data ##
+## Download data
 prodURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv"
 educURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv"
 
@@ -29,7 +29,7 @@ list.files() # Confirm download to working directory
 #str(product)
 #str(education)
 
-## Import Gross Domestic Product data and review structure ##
+## Import Gross Domestic Product data and review raw
 productRaw <- read.csv("GrossDomesticProduct.csv", stringsAsFactors = FALSE, header = FALSE) # Try reading characters in as strings instead of factors for easier manipulation
 str(productRaw) #Review data type row/column count
 head(productRaw) #Review beginning rows
@@ -40,7 +40,7 @@ str(product)
 head(product)
 tail(product)
 
-## Check NA's in imported columns to identify empty columns ##
+## Check NAs in imported columns to identify empty columns
 sum(!is.na(product[,c(3,7:10)])) #Detect total number of valid entries
 c(sum(is.na(product$V3)), sum(is.na(product$V7)), sum(is.na(product$V8)), sum(is.na(product$V9)), sum(is.na(product$V10))) #Output NA counts
 
@@ -52,7 +52,7 @@ sum(product$V6 == "") #Output empty entry counts
 product <- product[,c(1,2,4:6)]
 
 ## Provide names for each column
-names(product) <- c("Country","CountryRank", "Economy", "GDP_Millions_of_US_Dollars", "Comments")
+names(product) <- c("CountryCode","CountryRank", "Economy", "GDP_Millions_of_US_Dollars", "Comments")
 head(product)
 
 ## Replace comment reference with comment from original data's legend
@@ -74,12 +74,25 @@ product$GDP_Millions_of_US_Dollars <- as.numeric(product$GDP_Millions_of_US_Doll
 product$CountryRank <- as.integer(product$CountryRank)
 
 ## Output number of NA or empty values for each variable used in analysis
-sum(product$Country == "")
+sum(product$CountryCode == "")
 sum(is.na(product$CountryRank))
 sum(product$Economy == "")
 sum(is.na(product$GDP_Millions_of_US_Dollars))
 sum(product$Comments == "")
 
+product[!complete.cases(product),]
+
 ## Remove remaining NA values from product data frame
-product <- product[complete.cases(product),]
-str(product)
+# product <- product[complete.cases(product),]
+# str(product)
+product1 <- subset(product, product$CountryCode != "")
+product1 <- subset(product1, !is.na(product1$GDP_Millions_of_US_Dollars))
+
+## Extract only CountryCode and GDP column data to be merged
+GDPdata <- product1[,c(1,4)]
+str(GDPdata)
+GDPdata[!complete.cases(GDPdata),] # Re-confirm there are no missing values in the data
+
+GDPdata <- GDPdata[order(GDPdata$CountryCode),] # Order the data by CountryCode instead of GDP
+
+write.csv(GDPdata, "Product_clean.csv", row.names = FALSE)
