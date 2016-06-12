@@ -14,9 +14,9 @@ head(MergeData)
 ## Indicate how many of the IDs match
 sum(complete.cases(MergeData))
 
-MergeData1 <- MergeData[complete.cases(MergeData),]
+MergeData1 <- MergeData[complete.cases(MergeData),] # Remove rows with missing data
 
-## QUESTION 2: SORT THE DATA FRAME IN ASCENDING ORDER BY GDP (SO UNITED STATES IS LAST)
+## QUESTION 2: SORT THE DATA FRAME IN ASCENDING ORDER BY GDP (SO UNITED STATES IS LAST). WHAT IS THE 13TH COUNTRY IN THE RESULTING DATA FRAME?
 MergeData1 <- MergeData1[order(MergeData1$GDP_Millions_of_US_Dollars, decreasing = FALSE),]
 MergeData1[13,]
 

@@ -17,10 +17,8 @@ require(tidyr)
 
 ## Download data
 prodURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv"
-educURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv"
 
 download(prodURL, destfile = "GrossDomesticProduct.csv")
-download(educURL, destfile = "Education.csv")
 
 list.files() # Confirm download to working directory
 
