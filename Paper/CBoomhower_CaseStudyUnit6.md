@@ -1149,202 +1149,966 @@ MergeData2 <- MergeData1
 MergeData2$GDP.Quantile <- ntile(MergeData2$Country.Rank, 5) # Add 5 quantiles by Country.Rank to new GDP.Quantile column
 
 ## Generate table output
-kable(MergeData2[,c(2:3,6)], format = "markdown", caption = "Country GDP Quantiles vs. Country GDP Rank:", align = 'l', row.names = FALSE)
+kable(MergeData2[,c(2:3,6)], format = "html", caption = "Country GDP Quantiles vs. Country GDP Rank:", align = 'l', row.names = FALSE)
 ```
 
-
-
-|Income.Group         |Short.Name                     |GDP.Quantile |
-|:--------------------|:------------------------------|:------------|
-|Lower middle income  |Tuvalu                         |5            |
-|Lower middle income  |Kiribati                       |5            |
-|Lower middle income  |Marshall Islands               |5            |
-|Upper middle income  |Palau                          |5            |
-|Lower middle income  |São Tomé and Principe          |5            |
-|Lower middle income  |Micronesia                     |5            |
-|Lower middle income  |Tonga                          |5            |
-|Upper middle income  |Dominica                       |5            |
-|Low income           |Comoros                        |5            |
-|Lower middle income  |Samoa                          |5            |
-|Upper middle income  |St. Vincent and the Grenadines |5            |
-|Upper middle income  |Grenada                        |5            |
-|Upper middle income  |St. Kitts and Nevis            |5            |
-|Lower middle income  |Vanuatu                        |5            |
-|Low income           |Guinea-Bissau                  |5            |
-|Low income           |The Gambia                     |5            |
-|Low income           |Solomon Islands                |5            |
-|Upper middle income  |Seychelles                     |5            |
-|Upper middle income  |Antigua and Barbuda            |5            |
-|Upper middle income  |St. Lucia                      |5            |
-|Lower middle income  |Timor-Leste                    |5            |
-|Lower middle income  |Belize                         |5            |
-|Low income           |Liberia                        |5            |
-|Lower middle income  |Bhutan                         |5            |
-|Lower middle income  |Cape Verde                     |5            |
-|Low income           |Central African Republic       |5            |
-|Lower middle income  |Maldives                       |5            |
-|Lower middle income  |Lesotho                        |5            |
-|Low income           |Burundi                        |5            |
-|High income: nonOECD |Aruba                          |5            |
-|Lower middle income  |Guyana                         |5            |
-|Low income           |Eritrea                        |5            |
-|Lower middle income  |Swaziland                      |5            |
-|Low income           |Sierra Leone                   |5            |
-|Low income           |Togo                           |5            |
-|Upper middle income  |Fiji                           |5            |
-|Low income           |Mauritania                     |5            |
-|High income: nonOECD |Barbados                       |4            |
-|Low income           |Malawi                         |4            |
-|Upper middle income  |Montenegro                     |4            |
-|Upper middle income  |Suriname                       |4            |
-|High income: nonOECD |Bermuda                        |4            |
-|Low income           |Guinea                         |4            |
-|High income: nonOECD |Monaco                         |4            |
-|Lower middle income  |Kosovo                         |4            |
-|Low income           |Kyrgyz Republic                |4            |
-|Low income           |Niger                          |4            |
-|Low income           |Tajikistan                     |4            |
-|Low income           |Rwanda                         |4            |
-|Lower middle income  |Moldova                        |4            |
-|Low income           |Benin                          |4            |
-|Low income           |Haiti                          |4            |
-|High income: nonOECD |The Bahamas                    |4            |
-|High income: nonOECD |Malta                          |4            |
-|Low income           |Lao PDR                        |4            |
-|Upper middle income  |Macedonia                      |4            |
-|Low income           |Zimbabwe                       |4            |
-|Lower middle income  |Armenia                        |4            |
-|Low income           |Madagascar                     |4            |
-|Lower middle income  |Mongolia                       |4            |
-|Low income           |Mali                           |4            |
-|Low income           |Burkina Faso                   |4            |
-|Upper middle income  |Mauritius                      |4            |
-|Lower middle income  |Nicaragua                      |4            |
-|Upper middle income  |Albania                        |4            |
-|Low income           |Chad                           |4            |
-|Upper middle income  |Namibia                        |4            |
-|High income: OECD    |Iceland                        |4            |
-|Lower middle income  |Congo                          |4            |
-|Low income           |Cambodia                       |4            |
-|Lower middle income  |Senegal                        |4            |
-|Low income           |Mozambique                     |4            |
-|Upper middle income  |Botswana                       |4            |
-|Upper middle income  |Jamaica                        |4            |
-|Lower middle income  |Papua New Guinea               |4            |
-|Lower middle income  |Georgia                        |3            |
-|High income: nonOECD |Brunei                         |3            |
-|Low income           |Dem. Rep. Congo                |3            |
-|Upper middle income  |Bosnia and Herzegovina         |3            |
-|High income: nonOECD |Equatorial Guinea              |3            |
-|Upper middle income  |Gabon                          |3            |
-|Lower middle income  |Honduras                       |3            |
-|Low income           |Nepal                          |3            |
-|Low income           |Uganda                         |3            |
-|Low income           |Afghanistan                    |3            |
-|Low income           |Zambia                         |3            |
-|High income: nonOECD |Estonia                        |3            |
-|High income: nonOECD |Cyprus                         |3            |
-|High income: nonOECD |Trinidad and Tobago            |3            |
-|Lower middle income  |El Salvador                    |3            |
-|Lower middle income  |Côte d'Ivoire                  |3            |
-|Lower middle income  |Cameroon                       |3            |
-|Lower middle income  |Paraguay                       |3            |
-|Lower middle income  |Bolivia                        |3            |
-|Low income           |Tanzania                       |3            |
-|High income: nonOECD |Latvia                         |3            |
-|High income: nonOECD |Bahrain                        |3            |
-|Lower middle income  |Jordan                         |3            |
-|Lower middle income  |Turkmenistan                   |3            |
-|Lower middle income  |Yemen                          |3            |
-|Upper middle income  |Panama                         |3            |
-|Upper middle income  |Serbia                         |3            |
-|Low income           |Kenya                          |3            |
-|Low income           |Ghana                          |3            |
-|Low income           |Ethiopia                       |3            |
-|Upper middle income  |Lithuania                      |3            |
-|Upper middle income  |Lebanon                        |3            |
-|High income: nonOECD |Macao SAR, China               |3            |
-|Upper middle income  |Costa Rica                     |3            |
-|High income: OECD    |Slovenia                       |3            |
-|Lower middle income  |Tunisia                        |3            |
-|Upper middle income  |Uruguay                        |3            |
-|Lower middle income  |Guatemala                      |3            |
-|Upper middle income  |Bulgaria                       |2            |
-|Lower middle income  |Uzbekistan                     |2            |
-|High income: OECD    |Luxembourg                     |2            |
-|Lower middle income  |Sudan                          |2            |
-|Upper middle income  |Dominican Republic             |2            |
-|High income: nonOECD |Croatia                        |2            |
-|Lower middle income  |Sri Lanka                      |2            |
-|Upper middle income  |Belarus                        |2            |
-|Upper middle income  |Azerbaijan                     |2            |
-|Upper middle income  |Cuba                           |2            |
-|High income: nonOECD |Oman                           |2            |
-|Lower middle income  |Syrian Arab Republic           |2            |
-|Lower middle income  |Ecuador                        |2            |
-|High income: OECD    |Slovak Republic                |2            |
-|Lower middle income  |Morocco                        |2            |
-|High income: nonOECD |Puerto Rico                    |2            |
-|Lower middle income  |Angola                         |2            |
-|Low income           |Bangladesh                     |2            |
-|High income: OECD    |Hungary                        |2            |
-|Lower middle income  |Vietnam                        |2            |
-|High income: nonOECD |Kuwait                         |2            |
-|High income: OECD    |New Zealand                    |2            |
-|High income: nonOECD |Qatar                          |2            |
-|Lower middle income  |Ukraine                        |2            |
-|Upper middle income  |Romania                        |2            |
-|High income: OECD    |Czech Republic                 |2            |
-|Upper middle income  |Kazakhstan                     |2            |
-|Upper middle income  |Peru                           |2            |
-|Upper middle income  |Algeria                        |2            |
-|Lower middle income  |Iraq                           |2            |
-|High income: OECD    |Ireland                        |2            |
-|High income: OECD    |Portugal                       |2            |
-|Lower middle income  |Pakistan                       |2            |
-|High income: OECD    |Finland                        |2            |
-|High income: OECD    |Greece                         |2            |
-|Lower middle income  |Philippines                    |2            |
-|High income: OECD    |Israel                         |2            |
-|Lower middle income  |Nigeria                        |2            |
-|Lower middle income  |Egypt                          |1            |
-|High income: nonOECD |Hong Kong SAR, China           |1            |
-|Upper middle income  |Chile                          |1            |
-|High income: nonOECD |Singapore                      |1            |
-|Upper middle income  |Malaysia                       |1            |
-|High income: OECD    |Denmark                        |1            |
-|High income: nonOECD |United Arab Emirates           |1            |
-|Lower middle income  |Thailand                       |1            |
-|Upper middle income  |Colombia                       |1            |
-|Upper middle income  |Venezuela                      |1            |
-|Upper middle income  |South Africa                   |1            |
-|High income: OECD    |Austria                        |1            |
-|Upper middle income  |Argentina                      |1            |
-|High income: OECD    |Belgium                        |1            |
-|High income: OECD    |Poland                         |1            |
-|High income: OECD    |Norway                         |1            |
-|Upper middle income  |Iran                           |1            |
-|High income: OECD    |Sweden                         |1            |
-|High income: OECD    |Switzerland                    |1            |
-|High income: nonOECD |Saudi Arabia                   |1            |
-|High income: OECD    |Netherlands                    |1            |
-|Upper middle income  |Turkey                         |1            |
-|Lower middle income  |Indonesia                      |1            |
-|High income: OECD    |Korea                          |1            |
-|Upper middle income  |Mexico                         |1            |
-|High income: OECD    |Spain                          |1            |
-|High income: OECD    |Australia                      |1            |
-|High income: OECD    |Canada                         |1            |
-|Lower middle income  |India                          |1            |
-|High income: OECD    |Italy                          |1            |
-|Upper middle income  |Russia                         |1            |
-|Upper middle income  |Brazil                         |1            |
-|High income: OECD    |United Kingdom                 |1            |
-|High income: OECD    |France                         |1            |
-|High income: OECD    |Germany                        |1            |
-|High income: OECD    |Japan                          |1            |
-|Lower middle income  |China                          |1            |
-|High income: OECD    |United States                  |1            |
+<table>
+<caption>Country GDP Quantiles vs. Country GDP Rank:</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Income.Group </th>
+   <th style="text-align:left;"> Short.Name </th>
+   <th style="text-align:left;"> GDP.Quantile </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Tuvalu </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Kiribati </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Marshall Islands </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Palau </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> São Tomé and Principe </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Micronesia </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Tonga </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Dominica </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Comoros </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Samoa </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> St. Vincent and the Grenadines </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Grenada </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> St. Kitts and Nevis </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Vanuatu </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Guinea-Bissau </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> The Gambia </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Solomon Islands </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Seychelles </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Antigua and Barbuda </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> St. Lucia </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Timor-Leste </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Belize </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Liberia </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Bhutan </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Cape Verde </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Central African Republic </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Maldives </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Lesotho </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Burundi </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Aruba </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Guyana </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Eritrea </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Swaziland </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Sierra Leone </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Togo </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Fiji </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Mauritania </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Barbados </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Malawi </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Montenegro </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Suriname </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Bermuda </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Guinea </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Monaco </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Kosovo </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Kyrgyz Republic </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Niger </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Tajikistan </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Rwanda </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Moldova </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Benin </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Haiti </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> The Bahamas </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Malta </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Lao PDR </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Macedonia </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Zimbabwe </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Armenia </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Madagascar </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Mongolia </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Mali </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Burkina Faso </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Mauritius </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Nicaragua </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Albania </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Chad </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Namibia </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Iceland </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Congo </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Cambodia </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Senegal </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Mozambique </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Botswana </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Jamaica </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Papua New Guinea </td>
+   <td style="text-align:left;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Georgia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Brunei </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Dem. Rep. Congo </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Bosnia and Herzegovina </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Equatorial Guinea </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Gabon </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Honduras </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Nepal </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Uganda </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Afghanistan </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Zambia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Estonia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Cyprus </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Trinidad and Tobago </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> El Salvador </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Côte d'Ivoire </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Cameroon </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Paraguay </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Bolivia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Tanzania </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Latvia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Bahrain </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Turkmenistan </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Yemen </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Panama </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Serbia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Kenya </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Ghana </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Ethiopia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Lithuania </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Lebanon </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Macao SAR, China </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Costa Rica </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Slovenia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Tunisia </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Uruguay </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Guatemala </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Bulgaria </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Uzbekistan </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Luxembourg </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Sudan </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Dominican Republic </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Croatia </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Sri Lanka </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Belarus </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Azerbaijan </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Cuba </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Oman </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Syrian Arab Republic </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Ecuador </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Slovak Republic </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Morocco </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Puerto Rico </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Angola </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Low income </td>
+   <td style="text-align:left;"> Bangladesh </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Hungary </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Vietnam </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Kuwait </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> New Zealand </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Qatar </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Ukraine </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Romania </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Czech Republic </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Kazakhstan </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Peru </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Algeria </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Iraq </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Ireland </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Portugal </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Pakistan </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Finland </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Greece </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Philippines </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Israel </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Nigeria </td>
+   <td style="text-align:left;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Egypt </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Hong Kong SAR, China </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Chile </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Singapore </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Malaysia </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Denmark </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> United Arab Emirates </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Thailand </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Colombia </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Venezuela </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> South Africa </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Austria </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Argentina </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Belgium </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Poland </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Norway </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Iran </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Sweden </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Switzerland </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: nonOECD </td>
+   <td style="text-align:left;"> Saudi Arabia </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Netherlands </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Turkey </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> Indonesia </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Korea </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Mexico </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Spain </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Australia </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Canada </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> India </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Italy </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Russia </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Upper middle income </td>
+   <td style="text-align:left;"> Brazil </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> United Kingdom </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> France </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Germany </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> Japan </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Lower middle income </td>
+   <td style="text-align:left;"> China </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> High income: OECD </td>
+   <td style="text-align:left;"> United States </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+</tbody>
+</table>
 
 ```r
 ## Count number of lower middle income countries

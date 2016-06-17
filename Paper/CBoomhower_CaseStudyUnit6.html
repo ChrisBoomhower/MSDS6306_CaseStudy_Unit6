@@ -1043,7 +1043,7 @@ ggplot(data = MergeData1, aes(x=Income.Group, y=GDP.Millions.of.US.Dollars, fill
     geom_jitter(shape=16, position=position_jitter(0.3)) +                                      # Add individual data points with jitter
     theme(axis.text.x = element_text(angle = 55, hjust = 1, size = 10)) +                       
     xlab(&quot;Income Group&quot;) + ylab(&quot;Log Transformed GDP (Millions of US Dollars)&quot;) + ggtitle(&quot;Log Transformed GDP for All Countries by Income Group&quot;) # Provide labels</code></pre>
-<p><img src="data:image/png;base64,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" alt /><!-- --></p>
+<p><img src="data:image/png;base64,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" alt /><!-- --></p>
 <pre class="r"><code>## QUESTION 5: CUT THE GDP RANKING INTO 5 SEPARATE QUANTILE GROUPS. MAKE A TABLE VERSUS Income.Group. HOW MANY COUNTRIES ARE
 ## LOWER MIDDLE INCOME BUT AMONG THE 38 NATIONS WITH THE HIGHEST GDP?
 
@@ -1052,960 +1052,2103 @@ MergeData2 &lt;- MergeData1
 MergeData2$GDP.Quantile &lt;- ntile(MergeData2$Country.Rank, 5) # Add 5 quantiles by Country.Rank to new GDP.Quantile column
 
 ## Generate table output
-kable(MergeData2[,c(2:3,6)], format = &quot;markdown&quot;, caption = &quot;Country GDP Quantiles vs. Country GDP Rank:&quot;, align = 'l', row.names = FALSE)</code></pre>
+kable(MergeData2[,c(2:3,6)], format = &quot;html&quot;, caption = &quot;Country GDP Quantiles vs. Country GDP Rank:&quot;, align = 'l', row.names = FALSE)</code></pre>
 <table>
+<caption>
+Country GDP Quantiles vs. Country GDP Rank:
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Income.Group</th>
-<th align="left">Short.Name</th>
-<th align="left">GDP.Quantile</th>
+<tr>
+<th style="text-align:left;">
+Income.Group
+</th>
+<th style="text-align:left;">
+Short.Name
+</th>
+<th style="text-align:left;">
+GDP.Quantile
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Tuvalu</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Kiribati</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Marshall Islands</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Palau</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">São Tomé and Principe</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Micronesia</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Tonga</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Dominica</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Comoros</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Samoa</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">St. Vincent and the Grenadines</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Grenada</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">St. Kitts and Nevis</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Vanuatu</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Guinea-Bissau</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">The Gambia</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Solomon Islands</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Seychelles</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Antigua and Barbuda</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">St. Lucia</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Timor-Leste</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Belize</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Liberia</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Bhutan</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Cape Verde</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Central African Republic</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Maldives</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Lesotho</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Burundi</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Aruba</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Guyana</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Eritrea</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Swaziland</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Sierra Leone</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Togo</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Fiji</td>
-<td align="left">5</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Mauritania</td>
-<td align="left">5</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Barbados</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Malawi</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Montenegro</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Suriname</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Bermuda</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Guinea</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Monaco</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Kosovo</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Kyrgyz Republic</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Niger</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Tajikistan</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Rwanda</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Moldova</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Benin</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Haiti</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">The Bahamas</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Malta</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Lao PDR</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Macedonia</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Zimbabwe</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Armenia</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Madagascar</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Mongolia</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Mali</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Burkina Faso</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Mauritius</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Nicaragua</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Albania</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Chad</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Namibia</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Iceland</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Congo</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Cambodia</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Senegal</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Mozambique</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Botswana</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Jamaica</td>
-<td align="left">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Papua New Guinea</td>
-<td align="left">4</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Georgia</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Brunei</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Dem. Rep. Congo</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Bosnia and Herzegovina</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Equatorial Guinea</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Gabon</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Honduras</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Nepal</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Uganda</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Afghanistan</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Zambia</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Estonia</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Cyprus</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Trinidad and Tobago</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">El Salvador</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Côte d’Ivoire</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Cameroon</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Paraguay</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Bolivia</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Tanzania</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Latvia</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Bahrain</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Jordan</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Turkmenistan</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Yemen</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Panama</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Serbia</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Kenya</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Low income</td>
-<td align="left">Ghana</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Ethiopia</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Lithuania</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Lebanon</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Macao SAR, China</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Costa Rica</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Slovenia</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Tunisia</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Uruguay</td>
-<td align="left">3</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Guatemala</td>
-<td align="left">3</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Bulgaria</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Uzbekistan</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Luxembourg</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Sudan</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Dominican Republic</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Croatia</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Sri Lanka</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Belarus</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Azerbaijan</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Cuba</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Oman</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Syrian Arab Republic</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Ecuador</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Slovak Republic</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Morocco</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Puerto Rico</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Angola</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Low income</td>
-<td align="left">Bangladesh</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Hungary</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Vietnam</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Kuwait</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">New Zealand</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">Qatar</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Ukraine</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Romania</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Czech Republic</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Kazakhstan</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Peru</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Algeria</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Iraq</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Ireland</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Portugal</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Pakistan</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Finland</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Greece</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Philippines</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Israel</td>
-<td align="left">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Nigeria</td>
-<td align="left">2</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Egypt</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Hong Kong SAR, China</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Chile</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Singapore</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Malaysia</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Denmark</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">High income: nonOECD</td>
-<td align="left">United Arab Emirates</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">Lower middle income</td>
-<td align="left">Thailand</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Colombia</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Venezuela</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">South Africa</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Austria</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Argentina</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Belgium</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Poland</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Norway</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Iran</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Sweden</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Switzerland</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: nonOECD</td>
-<td align="left">Saudi Arabia</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Netherlands</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Turkey</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">Indonesia</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Korea</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Mexico</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Spain</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Australia</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Canada</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">India</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Italy</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Upper middle income</td>
-<td align="left">Russia</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">Upper middle income</td>
-<td align="left">Brazil</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">United Kingdom</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">France</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">High income: OECD</td>
-<td align="left">Germany</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">Japan</td>
-<td align="left">1</td>
-</tr>
-<tr class="even">
-<td align="left">Lower middle income</td>
-<td align="left">China</td>
-<td align="left">1</td>
-</tr>
-<tr class="odd">
-<td align="left">High income: OECD</td>
-<td align="left">United States</td>
-<td align="left">1</td>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Tuvalu
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Kiribati
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Marshall Islands
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Palau
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+São Tomé and Principe
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Micronesia
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Tonga
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Dominica
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Comoros
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Samoa
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+St. Vincent and the Grenadines
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Grenada
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+St. Kitts and Nevis
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Vanuatu
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Guinea-Bissau
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+The Gambia
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Solomon Islands
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Seychelles
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Antigua and Barbuda
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+St. Lucia
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Timor-Leste
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Belize
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Liberia
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Bhutan
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Cape Verde
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Central African Republic
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Maldives
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Lesotho
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Burundi
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Aruba
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Guyana
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Eritrea
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Swaziland
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Sierra Leone
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Togo
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Fiji
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Mauritania
+</td>
+<td style="text-align:left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Barbados
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Malawi
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Montenegro
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Suriname
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Bermuda
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Guinea
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Monaco
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Kosovo
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Kyrgyz Republic
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Niger
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Tajikistan
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Rwanda
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Moldova
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Benin
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Haiti
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+The Bahamas
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Malta
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Lao PDR
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Macedonia
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Zimbabwe
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Armenia
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Madagascar
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Mongolia
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Mali
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Burkina Faso
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Mauritius
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Nicaragua
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Albania
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Chad
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Namibia
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Iceland
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Congo
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Cambodia
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Senegal
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Mozambique
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Botswana
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Jamaica
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Papua New Guinea
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Georgia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Brunei
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Dem. Rep. Congo
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Bosnia and Herzegovina
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Equatorial Guinea
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Gabon
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Honduras
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Nepal
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Uganda
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Afghanistan
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Zambia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Estonia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Cyprus
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Trinidad and Tobago
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+El Salvador
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Côte d’Ivoire
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Cameroon
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Paraguay
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Bolivia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Tanzania
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Latvia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Bahrain
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Jordan
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Turkmenistan
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Yemen
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Panama
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Serbia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Kenya
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Ghana
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Ethiopia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Lithuania
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Lebanon
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Macao SAR, China
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Costa Rica
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Slovenia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Tunisia
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Uruguay
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Guatemala
+</td>
+<td style="text-align:left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Bulgaria
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Uzbekistan
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Luxembourg
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Sudan
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Dominican Republic
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Croatia
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Sri Lanka
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Belarus
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Azerbaijan
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Cuba
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Oman
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Syrian Arab Republic
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Ecuador
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Slovak Republic
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Morocco
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Puerto Rico
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Angola
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Low income
+</td>
+<td style="text-align:left;">
+Bangladesh
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Hungary
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Vietnam
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Kuwait
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+New Zealand
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Qatar
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Ukraine
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Romania
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Czech Republic
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Kazakhstan
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Peru
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Algeria
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Iraq
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Ireland
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Portugal
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Pakistan
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Finland
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Greece
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Philippines
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Israel
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Nigeria
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Egypt
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Hong Kong SAR, China
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Chile
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Singapore
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Malaysia
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Denmark
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+United Arab Emirates
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Thailand
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Colombia
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Venezuela
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+South Africa
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Austria
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Argentina
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Belgium
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Poland
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Norway
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Iran
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Sweden
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Switzerland
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: nonOECD
+</td>
+<td style="text-align:left;">
+Saudi Arabia
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Netherlands
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Turkey
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+Indonesia
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Korea
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Mexico
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Spain
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Australia
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Canada
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+India
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Italy
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Russia
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper middle income
+</td>
+<td style="text-align:left;">
+Brazil
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+United Kingdom
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+France
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Germany
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+Japan
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower middle income
+</td>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+High income: OECD
+</td>
+<td style="text-align:left;">
+United States
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
 </tbody>
 </table>
