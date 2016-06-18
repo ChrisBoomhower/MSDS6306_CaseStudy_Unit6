@@ -55,8 +55,8 @@ ggplot(data = MergeData1, aes(x=Income.Group, y=log(GDP.Millions.of.US.Dollars),
 MergeData2 <- MergeData1
 MergeData2$GDP.Quantile <- ntile(MergeData2$Country.Rank, 5) # Add 5 quantiles by Country.Rank to new GDP.Quantile column
 
-## Generate table output
-kable(MergeData2[,c(2:3,6)], format = "pandoc", caption = "Country GDP Quantiles vs. Country GDP Rank", align = 'l', row.names = FALSE)
+## Generate table by Income.Group output
+table(MergeData2$Income.Group, MergeData2$GDP.Quantile, dnn = c("Income.Group","GDP.Quantile"))
 
 ## Count number of lower middle income countries
 sum(MergeData2[(nrow(MergeData2)-37):nrow(MergeData2),]$Income.Group == "Lower middle income")

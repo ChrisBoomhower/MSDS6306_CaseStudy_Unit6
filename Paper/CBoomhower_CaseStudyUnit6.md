@@ -1,27 +1,27 @@
-# CBoomhower_CaseStudyUnit6
+# An Overview of Country Income Classification with Respect to GDP
 Chris Boomhower  
-June 17, 2016  
-
+June 18, 2016  
+##Introduction
 
 
 
 ```r
-##############################
-## Chris Boomhower
-## MSDS 6306
-## Unit 6 Case Study
-## 06/11/2016
-##############################
+knitr::opts_chunk$set(echo=TRUE)
+require(downloader)
+require(dplyr)
+require(ggplot2)
+require(knitr)
+```
 
-## Load required packages
-# require(downloader)
-#require(tidyr)
 
-## Verify current working directory
-# getwd()
-# setwd("Analysis//Data")
-# getwd()
+### GDP Data: Download and Importation
 
+The Gross Domestic Product data set is comprised of 2012 GDP values for various countries throughout the world. More recent data is hosted on Worldbank.org's website at http://data.worldbank.org/data-catalog/GDP-ranking-table.
+
+For this analysis, however, the 2012 data hosted at cloudfront.net is of particular interest. As such, the 2012 data at https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv is downloaded.
+
+
+```r
 ## Download data
 prodURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv"
 
@@ -36,12 +36,11 @@ list.files() # Confirm download to working directory
 ## [5] "Education.csv"                   "GrossDomesticProduct.csv"
 ```
 
-```r
-#product <- read.csv("GrossDomesticProduct.csv")
-#education <- read.csv("Education.csv")
-#str(product)
-#str(education)
+<br>
+Once the data is dowloaded to R's working directory, it is ready to be imported into the R environment as a data frame. After importation, its internal structure details and beginning and ending rows are observed to determine what actions to take when tidying the data. The last 100 rows from the data are observed since the raw data set contains as many as 95 irrelevant rows in its tail end. These last 100 rows are displayed in table form to shorten the output length.
 
+
+```r
 ## Import Gross Domestic Product data and review raw
 productRaw <- read.csv("GrossDomesticProduct.csv", stringsAsFactors = FALSE, header = FALSE) # Try reading characters in as strings instead of factors for easier manipulation
 str(productRaw) # Review raw data internal structure details
@@ -62,7 +61,7 @@ str(productRaw) # Review raw data internal structure details
 ```
 
 ```r
-head(productRaw) # Review beginning rows to ensure no blank observations
+head(productRaw) # Review beginning rows to look for irrelevant entries
 ```
 
 ```
@@ -83,314 +82,1336 @@ head(productRaw) # Review beginning rows to ensure no blank observations
 ```
 
 ```r
-tail(productRaw, 100) # Review ending rows to ensure no blank observations
+kable(tail(productRaw, 100), format = "html", caption = "Last 100 Rows of Raw GDP data", align = 'l', row.names = TRUE) # Review ending rows to look for irrelevant entries
 ```
 
-```
-##      V1
-## 232 MNA
-## 233 SAS
-## 234 SSA
-## 235 HIC
-## 236 EMU
-## 237    
-## 238    
-## 239    
-## 240    
-## 241    
-## 242    
-## 243    
-## 244    
-## 245    
-## 246    
-## 247    
-## 248    
-## 249    
-## 250    
-## 251    
-## 252    
-## 253    
-## 254    
-## 255    
-## 256    
-## 257    
-## 258    
-## 259    
-## 260    
-## 261    
-## 262    
-## 263    
-## 264    
-## 265    
-## 266    
-## 267    
-## 268    
-## 269    
-## 270    
-## 271    
-## 272    
-## 273    
-## 274    
-## 275    
-## 276    
-## 277    
-## 278    
-## 279    
-## 280    
-## 281    
-## 282    
-## 283    
-## 284    
-## 285    
-## 286    
-## 287    
-## 288    
-## 289    
-## 290    
-## 291    
-## 292    
-## 293    
-## 294    
-## 295    
-## 296    
-## 297    
-## 298    
-## 299    
-## 300    
-## 301    
-## 302    
-## 303    
-## 304    
-## 305    
-## 306    
-## 307    
-## 308    
-## 309    
-## 310    
-## 311    
-## 312    
-## 313    
-## 314    
-## 315    
-## 316    
-## 317    
-## 318    
-## 319    
-## 320    
-## 321    
-## 322    
-## 323    
-## 324    
-## 325    
-## 326    
-## 327    
-## 328    
-## 329    
-## 330    
-## 331    
-##                                                                                                                               V2
-## 232                                                                                                                             
-## 233                                                                                                                             
-## 234                                                                                                                             
-## 235                                                                                                                             
-## 236                                                                                                                             
-## 237                                                                                                                             
-## 238                                                                                                          .. Not available.  
-## 239           Note: Rankings include only those economies with confirmed GDP estimates. Figures in italics are for 2011 or 2010.
-## 240     a. Includes Former Spanish Sahara.  b. Excludes South Sudan  c. Covers mainland Tanzania only. d. Data are for the area 
-## 241 controlled by the government of the Republic of Cyprus.   e. Excludes Abkhazia and South Ossetia.  f. Excludes Transnistria.
-## 242                                                                                                                             
-## 243                                                                                                                             
-## 244                                                                                                                             
-## 245                                                                                                                             
-## 246                                                                                                                             
-## 247                                                                                                                             
-## 248                                                                                                                             
-## 249                                                                                                                             
-## 250                                                                                                                             
-## 251                                                                                                                             
-## 252                                                                                                                             
-## 253                                                                                                                             
-## 254                                                                                                                             
-## 255                                                                                                                             
-## 256                                                                                                                             
-## 257                                                                                                                             
-## 258                                                                                                                             
-## 259                                                                                                                             
-## 260                                                                                                                             
-## 261                                                                                                                             
-## 262                                                                                                                             
-## 263                                                                                                                             
-## 264                                                                                                                             
-## 265                                                                                                                             
-## 266                                                                                                                             
-## 267                                                                                                                             
-## 268                                                                                                                             
-## 269                                                                                                                             
-## 270                                                                                                                             
-## 271                                                                                                                             
-## 272                                                                                                                             
-## 273                                                                                                                             
-## 274                                                                                                                             
-## 275                                                                                                                             
-## 276                                                                                                                             
-## 277                                                                                                                             
-## 278                                                                                                                             
-## 279                                                                                                                             
-## 280                                                                                                                             
-## 281                                                                                                                             
-## 282                                                                                                                             
-## 283                                                                                                                             
-## 284                                                                                                                             
-## 285                                                                                                                             
-## 286                                                                                                                             
-## 287                                                                                                                             
-## 288                                                                                                                             
-## 289                                                                                                                             
-## 290                                                                                                                             
-## 291                                                                                                                             
-## 292                                                                                                                             
-## 293                                                                                                                             
-## 294                                                                                                                             
-## 295                                                                                                                             
-## 296                                                                                                                             
-## 297                                                                                                                             
-## 298                                                                                                                             
-## 299                                                                                                                             
-## 300                                                                                                                             
-## 301                                                                                                                             
-## 302                                                                                                                             
-## 303                                                                                                                             
-## 304                                                                                                                             
-## 305                                                                                                                             
-## 306                                                                                                                             
-## 307                                                                                                                             
-## 308                                                                                                                             
-## 309                                                                                                                             
-## 310                                                                                                                             
-## 311                                                                                                                             
-## 312                                                                                                                             
-## 313                                                                                                                             
-## 314                                                                                                                             
-## 315                                                                                                                             
-## 316                                                                                                                             
-## 317                                                                                                                             
-## 318                                                                                                                             
-## 319                                                                                                                             
-## 320                                                                                                                             
-## 321                                                                                                                             
-## 322                                                                                                                             
-## 323                                                                                                                             
-## 324                                                                                                                             
-## 325                                                                                                                             
-## 326                                                                                                                             
-## 327                                                                                                                             
-## 328                                                                                                                             
-## 329                                                                                                                             
-## 330                                                                                                                             
-## 331                                                                                                                             
-##     V3                           V4         V5 V6 V7 V8 V9 V10
-## 232 NA   Middle East & North Africa  1,540,807    NA NA NA  NA
-## 233 NA                   South Asia  2,286,093    NA NA NA  NA
-## 234 NA           Sub-Saharan Africa  1,289,813    NA NA NA  NA
-## 235 NA                  High income 49,717,634    NA NA NA  NA
-## 236 NA                    Euro area 12,192,344    NA NA NA  NA
-## 237 NA                                            NA NA NA  NA
-## 238 NA                                            NA NA NA  NA
-## 239 NA                                            NA NA NA  NA
-## 240 NA                                            NA NA NA  NA
-## 241 NA                                            NA NA NA  NA
-## 242 NA                                            NA NA NA  NA
-## 243 NA                                            NA NA NA  NA
-## 244 NA                                            NA NA NA  NA
-## 245 NA                                            NA NA NA  NA
-## 246 NA                                            NA NA NA  NA
-## 247 NA                                            NA NA NA  NA
-## 248 NA                                            NA NA NA  NA
-## 249 NA                                            NA NA NA  NA
-## 250 NA                                            NA NA NA  NA
-## 251 NA                                            NA NA NA  NA
-## 252 NA                                            NA NA NA  NA
-## 253 NA                                            NA NA NA  NA
-## 254 NA                                            NA NA NA  NA
-## 255 NA                                            NA NA NA  NA
-## 256 NA                                            NA NA NA  NA
-## 257 NA                                            NA NA NA  NA
-## 258 NA                                            NA NA NA  NA
-## 259 NA                                            NA NA NA  NA
-## 260 NA                                            NA NA NA  NA
-## 261 NA                                            NA NA NA  NA
-## 262 NA                                            NA NA NA  NA
-## 263 NA                                            NA NA NA  NA
-## 264 NA                                            NA NA NA  NA
-## 265 NA                                            NA NA NA  NA
-## 266 NA                                            NA NA NA  NA
-## 267 NA                                            NA NA NA  NA
-## 268 NA                                            NA NA NA  NA
-## 269 NA                                            NA NA NA  NA
-## 270 NA                                            NA NA NA  NA
-## 271 NA                                            NA NA NA  NA
-## 272 NA                                            NA NA NA  NA
-## 273 NA                                            NA NA NA  NA
-## 274 NA                                            NA NA NA  NA
-## 275 NA                                            NA NA NA  NA
-## 276 NA                                            NA NA NA  NA
-## 277 NA                                            NA NA NA  NA
-## 278 NA                                            NA NA NA  NA
-## 279 NA                                            NA NA NA  NA
-## 280 NA                                            NA NA NA  NA
-## 281 NA                                            NA NA NA  NA
-## 282 NA                                            NA NA NA  NA
-## 283 NA                                            NA NA NA  NA
-## 284 NA                                            NA NA NA  NA
-## 285 NA                                            NA NA NA  NA
-## 286 NA                                            NA NA NA  NA
-## 287 NA                                            NA NA NA  NA
-## 288 NA                                            NA NA NA  NA
-## 289 NA                                            NA NA NA  NA
-## 290 NA                                            NA NA NA  NA
-## 291 NA                                            NA NA NA  NA
-## 292 NA                                            NA NA NA  NA
-## 293 NA                                            NA NA NA  NA
-## 294 NA                                            NA NA NA  NA
-## 295 NA                                            NA NA NA  NA
-## 296 NA                                            NA NA NA  NA
-## 297 NA                                            NA NA NA  NA
-## 298 NA                                            NA NA NA  NA
-## 299 NA                                            NA NA NA  NA
-## 300 NA                                            NA NA NA  NA
-## 301 NA                                            NA NA NA  NA
-## 302 NA                                            NA NA NA  NA
-## 303 NA                                            NA NA NA  NA
-## 304 NA                                            NA NA NA  NA
-## 305 NA                                            NA NA NA  NA
-## 306 NA                                            NA NA NA  NA
-## 307 NA                                            NA NA NA  NA
-## 308 NA                                            NA NA NA  NA
-## 309 NA                                            NA NA NA  NA
-## 310 NA                                            NA NA NA  NA
-## 311 NA                                            NA NA NA  NA
-## 312 NA                                            NA NA NA  NA
-## 313 NA                                            NA NA NA  NA
-## 314 NA                                            NA NA NA  NA
-## 315 NA                                            NA NA NA  NA
-## 316 NA                                            NA NA NA  NA
-## 317 NA                                            NA NA NA  NA
-## 318 NA                                            NA NA NA  NA
-## 319 NA                                            NA NA NA  NA
-## 320 NA                                            NA NA NA  NA
-## 321 NA                                            NA NA NA  NA
-## 322 NA                                            NA NA NA  NA
-## 323 NA                                            NA NA NA  NA
-## 324 NA                                            NA NA NA  NA
-## 325 NA                                            NA NA NA  NA
-## 326 NA                                            NA NA NA  NA
-## 327 NA                                            NA NA NA  NA
-## 328 NA                                            NA NA NA  NA
-## 329 NA                                            NA NA NA  NA
-## 330 NA                                            NA NA NA  NA
-## 331 NA                                            NA NA NA  NA
-```
+<table>
+<caption>Last 100 Rows of Raw GDP data</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:left;"> V1 </th>
+   <th style="text-align:left;"> V2 </th>
+   <th style="text-align:left;"> V3 </th>
+   <th style="text-align:left;"> V4 </th>
+   <th style="text-align:left;"> V5 </th>
+   <th style="text-align:left;"> V6 </th>
+   <th style="text-align:left;"> V7 </th>
+   <th style="text-align:left;"> V8 </th>
+   <th style="text-align:left;"> V9 </th>
+   <th style="text-align:left;"> V10 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 232 </td>
+   <td style="text-align:left;"> MNA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Middle East &amp; North Africa </td>
+   <td style="text-align:left;"> 1,540,807 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 233 </td>
+   <td style="text-align:left;"> SAS </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> South Asia </td>
+   <td style="text-align:left;"> 2,286,093 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 234 </td>
+   <td style="text-align:left;"> SSA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Sub-Saharan Africa </td>
+   <td style="text-align:left;"> 1,289,813 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 235 </td>
+   <td style="text-align:left;"> HIC </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> High income </td>
+   <td style="text-align:left;"> 49,717,634 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 236 </td>
+   <td style="text-align:left;"> EMU </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Euro area </td>
+   <td style="text-align:left;"> 12,192,344 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 237 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 238 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> .. Not available. </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 239 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> Note: Rankings include only those economies with confirmed GDP estimates. Figures in italics are for 2011 or 2010. </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 240 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> a. Includes Former Spanish Sahara.  b. Excludes South Sudan  c. Covers mainland Tanzania only. d. Data are for the area </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 241 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> controlled by the government of the Republic of Cyprus.   e. Excludes Abkhazia and South Ossetia.  f. Excludes Transnistria. </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 242 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 243 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 244 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 245 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 246 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 247 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 248 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 249 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 250 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 251 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 252 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 253 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 254 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 255 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 256 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 257 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 258 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 259 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 260 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 261 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 262 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 263 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 264 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 265 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 266 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 267 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 268 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 269 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 270 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 271 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 272 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 273 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 274 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 275 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 276 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 277 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 278 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 279 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 280 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 281 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 282 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 283 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 284 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 285 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 286 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 287 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 288 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 289 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 291 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 292 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 293 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 294 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 295 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 296 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 297 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 298 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 299 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 300 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 301 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 302 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 303 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 304 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 305 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 306 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 307 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 308 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 309 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 310 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 311 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 312 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 313 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 314 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 315 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 316 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 317 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 318 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 319 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 320 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 321 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 322 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 323 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 324 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 325 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 326 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 327 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 328 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 329 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 330 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 331 </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> NA </td>
+  </tr>
+</tbody>
+</table>
+
+<br>
+
+### GDP Data: Tidying
+
+Empty rows at the beginning and end of the data are first removed during the tidying process.
+
 
 ```r
 product <- productRaw[6:236,] # Remove empty rows at beginning and end of productRaw data.frame
@@ -439,6 +1460,10 @@ tail(product) # Review ending rows once more
 ## 236 EMU    NA                    Euro area 12,192,344    NA NA NA  NA
 ```
 
+<br>
+Column *V3* and columns *V7* through *V10* are suspected of being empty. The next step is to ensure this is the case by counting the total number of values that are not "NA". If the sum of valid entries between all 5 columns is 0, then the columns may be safely removed from the data.
+
+
 ```r
 ## Check NAs in imported columns to identify empty columns
 sum(!is.na(product[,c(3,7:10)])) # Detect total number of valid entries
@@ -448,13 +1473,11 @@ sum(!is.na(product[,c(3,7:10)])) # Detect total number of valid entries
 ## [1] 0
 ```
 
-```r
-# paste("Column 3 NAs =", sum(is.na(product$V3))) # Output NA counts for empty columns
-# paste("Column 7 NAs =", sum(is.na(product$V7)))
-# paste("Column 8 NAs =", sum(is.na(product$V8)))
-# paste("Column 9 NAs =", sum(is.na(product$V9)))
-# paste("Column 10 NAs =", sum(is.na(product$V10)))
+<br>
+Since column *V6* imported as a character class, it is suspected to contain potentially valid entries. To confirm this, the sum of rows in column *V6* containing values is compared to the sum of rows in *V6* missing values.
 
+
+```r
 ## Check character column suspected of having empty character entries
 sum(product$V6 != "") # Check character type column for valid entries
 ```
@@ -471,8 +1494,12 @@ sum(product$V6 == "") # Output empty entry counts
 ## [1] 225
 ```
 
+<br>
+Only valid columns are extracted from the imported GDP data based on the NA results discovered previously. After extraction, the columns names are updated to better reflect each variable and its contents.
+
+
 ```r
-## Extract only valid columns from raw data
+## Extract only valid columns from 'product'
 product <- product[,c(1,2,4:6)]
 
 ## Provide names for each column
@@ -485,6 +1512,10 @@ names(product) # Ensure names added correctly
 ## [3] "Economy"                    "GDP.Millions.of.US.Dollars"
 ## [5] "Comments"
 ```
+
+<br>
+The original *Comments* column consists of letter designators which point to a legend (found at the bottom of the raw data set) that contains comments for some observations. In order to make these details accessible for future use after tidying the data, the *Comments* column letter designators are replaced with the original data set's legend contents.
+
 
 ```r
 ## Replace comment reference with comment from original data's legend
@@ -528,22 +1559,31 @@ product[product$Comments != "",] # View valid comment column entries after edits
 ## 146                                                        Excludes Transnistria
 ```
 
+<br>
+*GDP.Millions.of.Us.Dollars* was imported into the *product* data frame as a character class variable since it contains commas, which are used as thousands seperators, and periods, which are used to represent unavailable or uncollected data. In order to convert *GDP.Millions.of.Us.Dollars* to a numeric class for further processing, these commas and periods are removed.
+
+
 ```r
-## Convert GDP type to numeric
-product$GDP.Millions.of.US.Dollars <- gsub(",","", product$GDP.Millions.of.US.Dollars, fixed = TRUE) # Prep GDP column for
-product$GDP.Millions.of.US.Dollars <- gsub(".","", product$GDP.Millions.of.US.Dollars, fixed = TRUE) # type conversion
+## Prepare GDP column for type conversion
+product$GDP.Millions.of.US.Dollars <- gsub(",","", product$GDP.Millions.of.US.Dollars, fixed = TRUE) # Remove commas (fixed = TRUE to remove "," as is)
+product$GDP.Millions.of.US.Dollars <- gsub(".","", product$GDP.Millions.of.US.Dollars, fixed = TRUE) # Remove periods (fixed = TRUE to remove "." as is)
+```
+
+<br>
+Now that commas and periods are removed, the *GDP.Millions.of.Us.Dollars* column class is converted to numeric. Since no non-numerical characters are present within the *Country.Rank* column, this column class is ready for conversion from character to integer at this time as well.
+
+
+```r
+## Convert column classes as necessary
 product$GDP.Millions.of.US.Dollars <- as.numeric(product$GDP.Millions.of.US.Dollars) # Convert GDP type to numeric
+product$Country.Rank <- as.integer(product$Country.Rank) # Convert Country.Rank type to integer
+```
 
-## Convert Country.Rank type to integer
-product$Country.Rank <- as.integer(product$Country.Rank)
+<br>
+In order to gain a good perspective as to how many rows are still missing data before merging is performed, all rows still missing data are observed within R.
 
-## Output number of NA or empty values for each variable used in analysis
-# sum(product$Country.Code == "")
-# sum(is.na(product$Country.Rank))
-# sum(product$Economy == "")
-# sum(is.na(product$GDP.Millions.of.US.Dollars))
-# sum(product$Comments == "")
 
+```r
 product[!complete.cases(product),] # View all rows for which not all variable data is available
 ```
 
@@ -634,15 +1674,25 @@ product[!complete.cases(product),] # View all rows for which not all variable da
 ## 236                   12192344
 ```
 
-```r
-## Remove missing Country.Code values from the data frame
-# product <- product[complete.cases(product),]
-# str(product)
-product1 <- subset(product, product$Country.Code != "")
-# product1 <- subset(product1, !is.na(product1$GDP.Millions.of.US.Dollars))
+<br>
+As data will be merged by *Country.Code*, it is important to remove any rows missing a country code. This is done next.
 
-## Extract only Country.Code and GDP column data to be merged
-GDPdata <- product1[,c(1,2,4)]
+
+```r
+product1 <- subset(product, product$Country.Code != "") # Remove missing Country.Code values from the data frame
+nrow(product1[!complete.cases(product1$Country.Code),]) # Confirm there are no missing Country.Code values in the data
+```
+
+```
+## [1] 0
+```
+
+<br>
+Relevant GDP data is ready for final extraction in preparation for merging with the income data. In this case, *Country.Code*, *Country.Rank*, and *GDP.Millions.of.Us.Dollars* columns are extracted. To ensure only these data are present, the internal structure details are reviewed. Finally, the data is ordered by *Country.Code*
+
+
+```r
+GDPdata <- product1[,c(1,2,4)] # Extract only Country.Code, Country.Rank and GDP column data to be merged
 str(GDPdata) # Review extracted data internal structure details
 ```
 
@@ -654,39 +1704,22 @@ str(GDPdata) # Review extracted data internal structure details
 ```
 
 ```r
-nrow(GDPdata[!complete.cases(GDPdata$Country.Code),]) # Confirm there are no missing Country.Code values in the data
-```
-
-```
-## [1] 0
-```
-
-```r
 GDPdata <- GDPdata[order(GDPdata$Country.Code),] # Order the data by Country.Code instead of GDP
 
+## NOTE: TO WRITE THIS CLEANED DATA SET TO CSV, UNCOMMENT THE FOLLOWING LINE OF CODE
 # write.csv(GDPdata, "Product_clean.csv", row.names = FALSE)
 ```
 
+<br>
+
+## Education Data: Download and Importation
+
+The Education data set, which includes the country income data of interest, is comprised of details such as education access, completion, literacy, population, teachers, etc. for various countries. More recent data is hosted on Worldbank.org's website at http://data.worldbank.org/data-catalog/ed-stats.
+
+For this analysis, the most recently updated copy of the data is downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv.
+
 
 ```r
-##############################
-## Chris Boomhower
-## MSDS 6306
-## Unit 6 Case Study
-## 06/11/2016
-##############################
-
-## Load required packages
-# require(downloader)
-# require(ggplot2)
-# require(tidyr)
-# require(dplyr)
-
-## Verify current working directory
-# getwd()
-# setwd("Analysis//Data")
-# getwd()
-
 ## Download data
 educURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv"
 download(educURL, destfile = "Education.csv")
@@ -699,6 +1732,10 @@ list.files() # Confirm download to working directory
 ## [3] "CBoomhower_CaseStudyUnit6.Rmd"   "CBoomhower_CaseStudyUnit6_files"
 ## [5] "Education.csv"                   "GrossDomesticProduct.csv"
 ```
+
+<br>
+Once this second data set is dowloaded to R's working directory, it is ready to be imported into the R environment as a data frame, just as was done for the GDP data. Once again, after importation its internal structure details and beginning and ending rows are observed to determine what actions to take when tidying the data.
+
 
 ```r
 ## Import Educational data and review raw data
@@ -742,7 +1779,7 @@ str(EducRaw) # Review raw data internal structure details
 ```
 
 ```r
-head(EducRaw) # Review beginning rows to ensure no blank observations
+head(EducRaw) # Review beginning rows to look for irrelevant entries
 ```
 
 ```
@@ -847,7 +1884,7 @@ head(EducRaw) # Review beginning rows to ensure no blank observations
 ```
 
 ```r
-tail(EducRaw) # Review ending rows to ensure no blank observations
+tail(EducRaw) # Review ending rows to look for irrelevant entries
 ```
 
 ```
@@ -951,10 +1988,23 @@ tail(EducRaw) # Review ending rows to ensure no blank observations
 ## 234            ZW        ZW         Zimbabwe        Zimbabwe
 ```
 
+<br>
+
+### Education Data: Tidying
+
+As the country code columns will later be matched between GDP and income data, the name *CountryCode* is updated to *Country.Code* to reflect the same name used in the GDP data. All remaining column names are acceptable.
+
+
 ```r
 ## Rename CountryCode variable to match GDPdata's Country.Code
 Education <- rename(EducRaw, Country.Code = CountryCode)
+```
 
+<br>
+Since only the *Country.Code*, *Income.Group*, and *Short.Name* columns will be used in the final analysis, the number of NA's present in each of these columns is observed before merging these data with the GDP data.
+
+
+```r
 ## Check NAs or missing values in columns of interest
 nrow(Education[Education$Country.Code == "",])
 ```
@@ -979,14 +2029,12 @@ nrow(Education[Education$Short.Name == "",])
 ## [1] 0
 ```
 
+<br>
+*Country.Code*, *Income.Group*, and *Short.Name* columns are finally extracted in preparation for merging. One last check is performed to ensure there are no missing entries in the *Country.Code* column.
+
+
 ```r
-# nrow(EducRaw)
-
-## Remove missing Income.Group values and assign subset to new data frame
-# Education <- subset(EducRaw, EducRaw$Income.Group != "")
-
 ## Extract CountryCode and Income.Group columns
-# Income <- Education[,1:3]
 Income <- Education[,c(1,3,31)]
 head(Income)
 ```
@@ -1010,23 +2058,17 @@ nrow(Income[Income$Country.Code == "",]) # Confirm there are no missing Country.
 ```
 
 ```r
+## NOTE: TO WRITE THIS CLEANED DATA SET TO CSV, UNCOMMENT THE FOLLOWING LINE OF CODE
 # write.csv(Income, "Income_clean.csv", row.names = FALSE)
 ```
 
+<br>
+
+### Merging GDP and Income Data
+
+Now that the original data have been cleaned and only the columns of interest have been set aside for merging, GDP and Income data are ready to be merged together. After merging the two data sets together by *Country.Code*, the merged data frame's internal structure details and beginning and ending rows are observed to make sure the data merged correctly.
 
 ```r
-##############################
-## Chris Boomhower
-## MSDS 6306
-## Unit 6 Case Study
-## 06/11/2016
-##############################
-
-## Load required packages
-# require(ggplot2)
-# require(knitr)
-
-## QUESTION 1: MATCH THE DATA BASED ON THE COUNTRY SHORTCODE. HOW MANY OF THE IDs MATCH?
 ## Merge Income and GDPdata
 MergeData <- merge(Income, GDPdata, by = "Country.Code", all = TRUE)
 str(MergeData) # Review raw data internal structure details
@@ -1062,6 +2104,11 @@ head(MergeData) # Review beginning rows to ensure no blank observations
 ## 6                     348595
 ```
 
+<br>
+
+### Question 1: Match the data based on the country shortcode. How many of the IDs match?
+
+
 ```r
 ## Indicate how many of the IDs match
 length(intersect(GDPdata$Country.Code, Income$Country.Code))
@@ -1090,8 +2137,12 @@ nrow(MergeData1) # Provide row count after removing rows with missing data
 ## [1] 189
 ```
 
+<br>
+
+### Question 2: Sort the data frame in ascending order by GDP (so United States is last). What is the 13th country in the resulting data frame?
+
+
 ```r
-## QUESTION 2: SORT THE DATA FRAME IN ASCENDING ORDER BY GDP (SO UNITED STATES IS LAST). WHAT IS THE 13TH COUNTRY IN THE RESULTING DATA FRAME?
 MergeData1 <- MergeData1[order(MergeData1$GDP.Millions.of.US.Dollars, decreasing = FALSE),] # Sort the data frame by GDP
 MergeData1$Short.Name[13] # Display only the 13th country in the data frame
 ```
@@ -1100,8 +2151,12 @@ MergeData1$Short.Name[13] # Display only the 13th country in the data frame
 ## [1] "St. Kitts and Nevis"
 ```
 
+<br>
+
+### Question 3: What are the average GDP rankings for the "High income: OECD" and "High income: nonOECD" groups?
+
+
 ```r
-## QUESTION 3: WHAT ARE THE AVERAGE GDP RANKINGS FOR THE "High income: OECD" AND "High income: nonOECD" GROUPS?
 mean(subset(MergeData1, Income.Group == "High income: OECD")$Country.Rank)
 ```
 
@@ -1117,8 +2172,12 @@ mean(subset(MergeData1, Income.Group == "High income: nonOECD")$Country.Rank)
 ## [1] 91.91304
 ```
 
+<br>
+
+### Question 4: Plot the GDP for all of the countries. Use ggplot2 to color your plot by Income.Group
+
+
 ```r
-## QUESTION 4: PLOT THE GDP FOR ALL OF THE COUNTRIES. USE GGPLOT2 TO COLOR YOUR PLOT BY Income.Group
 # MergeData1$Country.Code <- as.factor(MergeData1$Country.Code) # Convert Country.Code type to factor in order to reorder ggplot x-axis by Income.Group
 # MergeData1$Country.Code <- factor(MergeData1$Country.Code, levels = MergeData1$Country.Code[order(MergeData1$GDP.Millions.of.US.Dollars)]) # Reorder Country.Code by Income.Group
 
@@ -1128,7 +2187,7 @@ ggplot(data = MergeData1, aes(x=Income.Group, y=GDP.Millions.of.US.Dollars, fill
     xlab("Income Group") + ylab("GDP (Millions of US Dollars)") + ggtitle("GDP for All Countries by Income Group") # Provide labels
 ```
 
-![](CBoomhower_CaseStudyUnit6_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](CBoomhower_CaseStudyUnit6_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
 
 ```r
 ggplot(data = MergeData1, aes(x=Income.Group, y=log(GDP.Millions.of.US.Dollars), fill=Income.Group)) + # Re-plot log transformed GDP
@@ -1138,980 +2197,34 @@ ggplot(data = MergeData1, aes(x=Income.Group, y=log(GDP.Millions.of.US.Dollars),
     xlab("Income Group") + ylab("Log Transformed GDP (Millions of US Dollars)") + ggtitle("Log Transformed GDP for All Countries by Income Group") # Provide labels
 ```
 
-![](CBoomhower_CaseStudyUnit6_files/figure-html/unnamed-chunk-3-2.png)<!-- -->
+![](CBoomhower_CaseStudyUnit6_files/figure-html/unnamed-chunk-22-2.png)<!-- -->
+
+<br>
+
+### Question 5: Cut the GDP ranking into 5 separate quantile groups. Make a table versus Income.Group. How many countries are lower middle income but among the 38 nations with the highest GDP?
+
 
 ```r
-## QUESTION 5: CUT THE GDP RANKING INTO 5 SEPARATE QUANTILE GROUPS. MAKE A TABLE VERSUS Income.Group. HOW MANY COUNTRIES ARE
-## LOWER MIDDLE INCOME BUT AMONG THE 38 NATIONS WITH THE HIGHEST GDP?
-
 ## Create additional data frame and add quantile column
 MergeData2 <- MergeData1
 MergeData2$GDP.Quantile <- ntile(MergeData2$Country.Rank, 5) # Add 5 quantiles by Country.Rank to new GDP.Quantile column
 
-## Generate table output
-kable(MergeData2[,c(2:3,6)], format = "html", caption = "Country GDP Quantiles vs. Country GDP Rank:", align = 'l', row.names = FALSE)
+## Generate table by Income.Group output
+table(MergeData2$Income.Group, MergeData2$GDP.Quantile, dnn = c("Income.Group","GDP.Quantile"))
 ```
 
-<table>
-<caption>Country GDP Quantiles vs. Country GDP Rank:</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Income.Group </th>
-   <th style="text-align:left;"> Short.Name </th>
-   <th style="text-align:left;"> GDP.Quantile </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Tuvalu </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Kiribati </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Marshall Islands </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Palau </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> São Tomé and Principe </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Micronesia </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Tonga </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Dominica </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Comoros </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Samoa </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> St. Vincent and the Grenadines </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Grenada </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> St. Kitts and Nevis </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Vanuatu </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Guinea-Bissau </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> The Gambia </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Solomon Islands </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Seychelles </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Antigua and Barbuda </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> St. Lucia </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Timor-Leste </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Belize </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Liberia </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Bhutan </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Cape Verde </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Central African Republic </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Maldives </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Lesotho </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Burundi </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Aruba </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Guyana </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Eritrea </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Swaziland </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Sierra Leone </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Togo </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Fiji </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Mauritania </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Barbados </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Malawi </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Montenegro </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Suriname </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Bermuda </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Guinea </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Monaco </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Kosovo </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Kyrgyz Republic </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Niger </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Tajikistan </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Rwanda </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Moldova </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Benin </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Haiti </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> The Bahamas </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Malta </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Lao PDR </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Macedonia </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Zimbabwe </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Armenia </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Madagascar </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Mongolia </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Mali </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Burkina Faso </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Mauritius </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Nicaragua </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Albania </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Chad </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Namibia </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Iceland </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Congo </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Cambodia </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Senegal </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Mozambique </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Botswana </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Jamaica </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Papua New Guinea </td>
-   <td style="text-align:left;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Georgia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Brunei </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Dem. Rep. Congo </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Bosnia and Herzegovina </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Equatorial Guinea </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Gabon </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Honduras </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Nepal </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Uganda </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Afghanistan </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Zambia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Estonia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Cyprus </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Trinidad and Tobago </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> El Salvador </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Côte d'Ivoire </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Cameroon </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Paraguay </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Bolivia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Tanzania </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Latvia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Bahrain </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Jordan </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Turkmenistan </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Yemen </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Panama </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Serbia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Kenya </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Ghana </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Ethiopia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Lithuania </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Lebanon </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Macao SAR, China </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Costa Rica </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Slovenia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Tunisia </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Uruguay </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Guatemala </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Bulgaria </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Uzbekistan </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Luxembourg </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Sudan </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Dominican Republic </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Croatia </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Sri Lanka </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Belarus </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Azerbaijan </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Cuba </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Oman </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Syrian Arab Republic </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Ecuador </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Slovak Republic </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Morocco </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Puerto Rico </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Angola </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Low income </td>
-   <td style="text-align:left;"> Bangladesh </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Hungary </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Vietnam </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Kuwait </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> New Zealand </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Qatar </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Ukraine </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Romania </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Czech Republic </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Kazakhstan </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Peru </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Algeria </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Iraq </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Ireland </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Portugal </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Pakistan </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Finland </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Greece </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Philippines </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Israel </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Nigeria </td>
-   <td style="text-align:left;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Egypt </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Hong Kong SAR, China </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Chile </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Singapore </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Malaysia </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Denmark </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> United Arab Emirates </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Thailand </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Colombia </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Venezuela </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> South Africa </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Austria </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Argentina </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Belgium </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Poland </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Norway </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Iran </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Sweden </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Switzerland </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: nonOECD </td>
-   <td style="text-align:left;"> Saudi Arabia </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Netherlands </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Turkey </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> Indonesia </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Korea </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Mexico </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Spain </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Australia </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Canada </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> India </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Italy </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Russia </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Upper middle income </td>
-   <td style="text-align:left;"> Brazil </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> United Kingdom </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> France </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Germany </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> Japan </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lower middle income </td>
-   <td style="text-align:left;"> China </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> High income: OECD </td>
-   <td style="text-align:left;"> United States </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-</tbody>
-</table>
+```
+##                       GDP.Quantile
+## Income.Group            1  2  3  4  5
+##   High income: nonOECD  4  5  8  5  1
+##   High income: OECD    18 10  1  1  0
+##   Low income            0  1  9 16 11
+##   Lower middle income   5 13 12  8 16
+##   Upper middle income  11  9  8  8  9
+```
 
 ```r
-## Count number of lower middle income countries
+## Confirm number of lower middle income countries as listed in the table above
 sum(MergeData2[(nrow(MergeData2)-37):nrow(MergeData2),]$Income.Group == "Lower middle income")
 ```
 
