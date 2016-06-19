@@ -1,8 +1,19 @@
-# An Overview of Country Income Classification with Respect to GDP
+# A Study of Country Income Classification with Respect to GDP
 Chris Boomhower  
 June 18, 2016  
-##Introduction
+## Introduction
 
+#### Even the simplest of data can often provide meaningful insights when cleaned, merged, and analyzed in the right way. So is the case for the Worldbank.org's country GDP ranking and country education data sets. Both are independent data sets providing different types of data for more or less the same countries (How closely these data sets match up will be discussed further in this study). By cleaning and merging these data, the relationships between country income group classification and GDP ranking may be assessed. Specifically, the data within this study are tidied and merged to answer the following five questions:
+
+#### 1. Match the data based on the country shortcode. How many of the IDs match?
+#### 2. Sort the data frame in ascending order by GDP (so United States is last). What is the 13th country in the resulting data frame?
+#### 3. What are the average GDP rankings for the "High income: OECD" and "High income: nonOECD" groups?
+#### 4. Plot the GDP for all of the countries. Use ggplot2 to color your plot by Income.Group.
+#### 5. Cut the GDP ranking into 5 separate quantile groups. Make a table versus Income.Group. How many countries are lower middle income but among the 38 nations with the highest GDP?
+
+#### As already mentioned, the data sets must be cleaned and merged before these questions may even be discussed. To do this, the GDP data is downloaded, imported, and cleaned first, followed second by the education data which is downloaded, imported, and cleaned in a similar fashion.
+
+#### The *downloader*, *dplyr*, *ggplot2*, and *knitr* libraries are required to carry out this study.
 
 
 ```r
@@ -13,12 +24,13 @@ require(ggplot2)
 require(knitr)
 ```
 
+_________________________________________
 
-### GDP Data: Download and Importation
+## GDP Data: Download and Importation
 
-The Gross Domestic Product data set is comprised of 2012 GDP values for various countries throughout the world. More recent data is hosted on Worldbank.org's website at http://data.worldbank.org/data-catalog/GDP-ranking-table.
+#### The Gross Domestic Product data set is comprised of 2012 GDP values for various countries throughout the world. More recent data is hosted on Worldbank.org's website at http://data.worldbank.org/data-catalog/GDP-ranking-table.
 
-For this analysis, however, the 2012 data hosted at cloudfront.net is of particular interest. As such, the 2012 data at https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv is downloaded.
+#### For this analysis, however, the 2012 data hosted at cloudfront.net is of particular interest. As such, the 2012 data at https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv is downloaded.
 
 
 ```r
@@ -37,11 +49,12 @@ list.files() # Confirm download to working directory
 ```
 
 <br>
-Once the data is dowloaded to R's working directory, it is ready to be imported into the R environment as a data frame. After importation, its internal structure details and beginning and ending rows are observed to determine what actions to take when tidying the data. The last 100 rows from the data are observed since the raw data set contains as many as 95 irrelevant rows in its tail end. These last 100 rows are displayed in table form to shorten the output length.
+
+#### Once the data is dowloaded to R's working directory, it is ready to be imported into the R environment as a data frame. After importation, its internal structure details and beginning and ending rows are observed to determine what actions to take when tidying the data. The last 100 rows from the data are observed since the raw data set contains as many as 95 irrelevant rows in its tail end. These last 100 rows are displayed in table form to shorten the output length.
 
 
 ```r
-## Import Gross Domestic Product data and review raw
+## Import Gross Domestic Product data and review raw data
 productRaw <- read.csv("GrossDomesticProduct.csv", stringsAsFactors = FALSE, header = FALSE) # Try reading characters in as strings instead of factors for easier manipulation
 str(productRaw) # Review raw data internal structure details
 ```
@@ -82,7 +95,7 @@ head(productRaw) # Review beginning rows to look for irrelevant entries
 ```
 
 ```r
-kable(tail(productRaw, 100), format = "html", caption = "Last 100 Rows of Raw GDP data", align = 'l', row.names = TRUE) # Review ending rows to look for irrelevant entries
+kable(tail(productRaw, 100), format = "html", caption = "Last 100 Rows of Raw GDP data", align = 'l', row.names = TRUE) # Review ending rows to look for irrelevant entries; kable output to reduce output space required in Markdown
 ```
 
 <table>
@@ -1406,16 +1419,16 @@ kable(tail(productRaw, 100), format = "html", caption = "Last 100 Rows of Raw GD
 </tbody>
 </table>
 
-<br>
+___________________________
 
-### GDP Data: Tidying
+## GDP Data: Tidying
 
-Empty rows at the beginning and end of the data are first removed during the tidying process.
+#### Empty rows at the beginning and end of the data frame are first removed during the tidying process.
 
 
 ```r
 product <- productRaw[6:236,] # Remove empty rows at beginning and end of productRaw data.frame
-str(product) # Review raw data internal structure details once more
+str(product) # Review data internal structure details once more
 ```
 
 ```
@@ -1461,7 +1474,8 @@ tail(product) # Review ending rows once more
 ```
 
 <br>
-Column *V3* and columns *V7* through *V10* are suspected of being empty. The next step is to ensure this is the case by counting the total number of values that are not "NA". If the sum of valid entries between all 5 columns is 0, then the columns may be safely removed from the data.
+
+#### Column *V3* and columns *V7* through *V10* are suspected of being empty. The next step is to ensure this is the case by counting the total number of values that are not NA. If the sum of valid entries between all 5 columns is 0, then the columns may be safely removed from the data.
 
 
 ```r
@@ -1474,7 +1488,8 @@ sum(!is.na(product[,c(3,7:10)])) # Detect total number of valid entries
 ```
 
 <br>
-Since column *V6* imported as a character class, it is suspected to contain potentially valid entries. To confirm this, the sum of rows in column *V6* containing values is compared to the sum of rows in *V6* missing values.
+
+#### Since column *V6* imported as a character class, it is suspected to contain potentially valid entries. To confirm this, the sum of rows in column *V6* containing values is compared to the sum of rows in *V6* missing values.
 
 
 ```r
@@ -1495,11 +1510,12 @@ sum(product$V6 == "") # Output empty entry counts
 ```
 
 <br>
-Only valid columns are extracted from the imported GDP data based on the NA results discovered previously. After extraction, the columns names are updated to better reflect each variable and its contents.
+
+#### Only valid columns are extracted from the imported GDP data based on the NA results discovered previously. After extraction, the column names are updated to better reflect each variable and its contents.
 
 
 ```r
-## Extract only valid columns from 'product'
+## Extract only valid columns from product
 product <- product[,c(1,2,4:6)]
 
 ## Provide names for each column
@@ -1514,7 +1530,8 @@ names(product) # Ensure names added correctly
 ```
 
 <br>
-The original *Comments* column consists of letter designators which point to a legend (found at the bottom of the raw data set) that contains comments for some observations. In order to make these details accessible for future use after tidying the data, the *Comments* column letter designators are replaced with the original data set's legend contents.
+
+#### The original *Comments* column consists of letter designators which point to a legend (found at the bottom of the raw data set) that contains comments for some observations. In order to make these details accessible for future use after tidying the data, the *Comments* column letter designators are replaced with the original data set's legend contents.
 
 
 ```r
@@ -1560,7 +1577,8 @@ product[product$Comments != "",] # View valid comment column entries after edits
 ```
 
 <br>
-*GDP.Millions.of.Us.Dollars* was imported into the *product* data frame as a character class variable since it contains commas, which are used as thousands seperators, and periods, which are used to represent unavailable or uncollected data. In order to convert *GDP.Millions.of.Us.Dollars* to a numeric class for further processing, these commas and periods are removed.
+
+#### *GDP.Millions.of.US.Dollars* was imported into the *product* data frame as a character class variable since it contains commas, which are used as thousands seperators, and periods, which are used to represent unavailable or uncollected data. In order to convert *GDP.Millions.of.US.Dollars* to a numeric class for further processing, these commas and periods are removed.
 
 
 ```r
@@ -1570,7 +1588,8 @@ product$GDP.Millions.of.US.Dollars <- gsub(".","", product$GDP.Millions.of.US.Do
 ```
 
 <br>
-Now that commas and periods are removed, the *GDP.Millions.of.Us.Dollars* column class is converted to numeric. Since no non-numerical characters are present within the *Country.Rank* column, this column class is ready for conversion from character to integer at this time as well.
+
+#### Now that commas and periods are removed, the *GDP.Millions.of.Us.Dollars* column class is converted to numeric. Since no non-numerical characters are present within the *Country.Rank* column, this column class is ready for conversion from character to integer at this time as well.
 
 
 ```r
@@ -1580,7 +1599,8 @@ product$Country.Rank <- as.integer(product$Country.Rank) # Convert Country.Rank 
 ```
 
 <br>
-In order to gain a good perspective as to how many rows are still missing data before merging is performed, all rows still missing data are observed within R.
+
+#### In order to gain a good perspective as to how many rows are still missing data before merging is performed, all rows still missing data are observed next.
 
 
 ```r
@@ -1675,7 +1695,8 @@ product[!complete.cases(product),] # View all rows for which not all variable da
 ```
 
 <br>
-As data will be merged by *Country.Code*, it is important to remove any rows missing a country code. This is done next.
+
+#### As data will be merged by *Country.Code*, it is important to remove any rows missing a country code value. This is done now.
 
 
 ```r
@@ -1688,7 +1709,8 @@ nrow(product1[!complete.cases(product1$Country.Code),]) # Confirm there are no m
 ```
 
 <br>
-Relevant GDP data is ready for final extraction in preparation for merging with the income data. In this case, *Country.Code*, *Country.Rank*, and *GDP.Millions.of.Us.Dollars* columns are extracted. To ensure only these data are present, the internal structure details are reviewed. Finally, the data is ordered by *Country.Code*
+
+#### Relevant GDP data is ready for final extraction in preparation for merging with the income data. In this case, *Country.Code*, *Country.Rank*, and *GDP.Millions.of.US.Dollars* columns are extracted into data frame *GDPdata*. To ensure only these data are present in *GDPdata*, the internal structure details are reviewed. Finally, the data is ordered by *Country.Code*
 
 
 ```r
@@ -1710,13 +1732,13 @@ GDPdata <- GDPdata[order(GDPdata$Country.Code),] # Order the data by Country.Cod
 # write.csv(GDPdata, "Product_clean.csv", row.names = FALSE)
 ```
 
-<br>
+_______________________________
 
 ## Education Data: Download and Importation
 
-The Education data set, which includes the country income data of interest, is comprised of details such as education access, completion, literacy, population, teachers, etc. for various countries. More recent data is hosted on Worldbank.org's website at http://data.worldbank.org/data-catalog/ed-stats.
+#### The education data set, which includes the country income data of interest, is comprised of details such as education access, completion, literacy, population, teachers, etc. for various countries. More recent data is hosted on Worldbank.org's website at http://data.worldbank.org/data-catalog/ed-stats.
 
-For this analysis, the most recently updated copy of the data is downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv.
+#### For this analysis, the most recently updated copy of the data is downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.csv.
 
 
 ```r
@@ -1734,11 +1756,12 @@ list.files() # Confirm download to working directory
 ```
 
 <br>
-Once this second data set is dowloaded to R's working directory, it is ready to be imported into the R environment as a data frame, just as was done for the GDP data. Once again, after importation its internal structure details and beginning and ending rows are observed to determine what actions to take when tidying the data.
+
+#### Once this second data set is dowloaded to R's working directory, it is ready to be imported into the R environment as a data frame, just as was done for the GDP data. Once again, its internal structure details and beginning and ending rows are observed to determine what actions to take when tidying the data.
 
 
 ```r
-## Import Educational data and review raw data
+## Import education data and review raw data
 EducRaw <- read.csv("Education.csv", stringsAsFactors = FALSE, header = TRUE) # Try reading characters in as strings instead of factors for easier manipulation
 str(EducRaw) # Review raw data internal structure details
 ```
@@ -1988,11 +2011,11 @@ tail(EducRaw) # Review ending rows to look for irrelevant entries
 ## 234            ZW        ZW         Zimbabwe        Zimbabwe
 ```
 
-<br>
+____________________________
 
-### Education Data: Tidying
+## Education Data: Tidying
 
-As the country code columns will later be matched between GDP and income data, the name *CountryCode* is updated to *Country.Code* to reflect the same name used in the GDP data. All remaining column names are acceptable.
+#### As the country code columns will later be matched between GDP and income data, the name *CountryCode* is updated to *Country.Code* to reflect the same name used in the GDP data. All remaining column names are acceptable.
 
 
 ```r
@@ -2001,7 +2024,8 @@ Education <- rename(EducRaw, Country.Code = CountryCode)
 ```
 
 <br>
-Since only the *Country.Code*, *Income.Group*, and *Short.Name* columns will be used in the final analysis, the number of NA's present in each of these columns is observed before merging these data with the GDP data.
+
+#### Since only the *Country.Code*, *Income.Group*, and *Short.Name* columns will be used in the final analysis, the number of NA's present in each of these columns is observed before merging these data with the GDP data.
 
 
 ```r
@@ -2030,11 +2054,12 @@ nrow(Education[Education$Short.Name == "",])
 ```
 
 <br>
-*Country.Code*, *Income.Group*, and *Short.Name* columns are finally extracted in preparation for merging. One last check is performed to ensure there are no missing entries in the *Country.Code* column.
+
+#### *Country.Code*, *Income.Group*, and *Short.Name* columns are finally extracted into the *Income* data frame in preparation for merging.
 
 
 ```r
-## Extract CountryCode and Income.Group columns
+## Extract Country.Code and Income.Group columns
 Income <- Education[,c(1,3,31)]
 head(Income)
 ```
@@ -2050,23 +2075,15 @@ head(Income)
 ```
 
 ```r
-nrow(Income[Income$Country.Code == "",]) # Confirm there are no missing Country.Code values in the data
-```
-
-```
-## [1] 0
-```
-
-```r
 ## NOTE: TO WRITE THIS CLEANED DATA SET TO CSV, UNCOMMENT THE FOLLOWING LINE OF CODE
 # write.csv(Income, "Income_clean.csv", row.names = FALSE)
 ```
 
-<br>
+_____________________________
 
-### Merging GDP and Income Data
+## Merging GDP and Income Data
 
-Now that the original data have been cleaned and only the columns of interest have been set aside for merging, GDP and Income data are ready to be merged together. After merging the two data sets together by *Country.Code*, the merged data frame's internal structure details and beginning and ending rows are observed to make sure the data merged correctly.
+#### Now that the original data have been cleaned and only the columns of interest have been set aside for merging, GDP and Income data are ready to be merged together. After merging the two data sets together by *Country.Code*, the merged data frame's internal structure details and beginning and ending rows are observed to make sure the data merged correctly.
 
 ```r
 ## Merge Income and GDPdata
@@ -2104,9 +2121,11 @@ head(MergeData) # Review beginning rows to ensure no blank observations
 ## 6                     348595
 ```
 
-<br>
+______________________________
 
-### Question 1: Match the data based on the country shortcode. How many of the IDs match?
+## Question 1: Match the data based on the country shortcode. How many of the IDs match?
+
+#### Since NAs were not removed prior to merging the two data sets, there are some country codes that match but are still to be removed as their other columns are missing data. For this reason, the number of matching IDs is evaluated before and after NA removal.
 
 
 ```r
@@ -2137,9 +2156,12 @@ nrow(MergeData1) # Provide row count after removing rows with missing data
 ## [1] 189
 ```
 
-<br>
+#### **Before removing the NA values, there are 224 matching IDs. Once all 49 NAs are removed, however, there remain 189 matching country code IDs.**
+______________________________
 
-### Question 2: Sort the data frame in ascending order by GDP (so United States is last). What is the 13th country in the resulting data frame?
+## Question 2: Sort the data frame in ascending order by GDP (so United States is last). What is the 13th country in the resulting data frame?
+
+#### To sort the data in ascending order by GDP, the *order* function is used.
 
 
 ```r
@@ -2151,13 +2173,16 @@ MergeData1$Short.Name[13] # Display only the 13th country in the data frame
 ## [1] "St. Kitts and Nevis"
 ```
 
-<br>
+#### **After sorting the data in ascending order by GDP, St. Kitts and Nevis is the 13th country in the data frame.**
+______________________________
 
-### Question 3: What are the average GDP rankings for the "High income: OECD" and "High income: nonOECD" groups?
+## Question 3: What are the average GDP rankings for the "High income: OECD" and "High income: nonOECD" groups?
+
+#### The *mean* function is used to calculate the average rankings for the *High income: OECD* and *High income: nonOECD* groups.
 
 
 ```r
-mean(subset(MergeData1, Income.Group == "High income: OECD")$Country.Rank)
+mean(subset(MergeData1, Income.Group == "High income: OECD")$Country.Rank)    # Calculate High income: OECD mean country rank
 ```
 
 ```
@@ -2165,43 +2190,53 @@ mean(subset(MergeData1, Income.Group == "High income: OECD")$Country.Rank)
 ```
 
 ```r
-mean(subset(MergeData1, Income.Group == "High income: nonOECD")$Country.Rank)
+mean(subset(MergeData1, Income.Group == "High income: nonOECD")$Country.Rank) # Calculate High income: nonOECD mean country rank
 ```
 
 ```
 ## [1] 91.91304
 ```
 
-<br>
+#### **The average *High income: OECD* GDP ranking is 32.96667 and the average *High income: nonOECD* GDP ranking is 91.91304.**
+______________________________
 
-### Question 4: Plot the GDP for all of the countries. Use ggplot2 to color your plot by Income.Group
+## Question 4: Plot the GDP for all of the countries. Use ggplot2 to color your plot by Income.Group.
+
+#### The *ggplot* function is used to render side-by-side boxplots of all countries' GDP by *Income.Group*.
 
 
 ```r
-# MergeData1$Country.Code <- as.factor(MergeData1$Country.Code) # Convert Country.Code type to factor in order to reorder ggplot x-axis by Income.Group
-# MergeData1$Country.Code <- factor(MergeData1$Country.Code, levels = MergeData1$Country.Code[order(MergeData1$GDP.Millions.of.US.Dollars)]) # Reorder Country.Code by Income.Group
-
-ggplot(data = MergeData1, aes(x=Income.Group, y=GDP.Millions.of.US.Dollars, fill=Income.Group)) +
+## Render ggplot2 boxplot for GDP data
+ggplot(data = MergeData1, aes(x=Income.Group, y=GDP.Millions.of.US.Dollars, fill=Income.Group)) + # Color by Income.Group
     geom_boxplot() +                                                                            # Create boxplots
-    theme(axis.text.x = element_text(angle = 55, hjust = 1, size = 10)) +                       # Adjust X axis label size and position
+    theme(axis.text.x = element_text(angle = 55, hjust = 1, size = 12)) +                       # Adjust X axis label size and position
     xlab("Income Group") + ylab("GDP (Millions of US Dollars)") + ggtitle("GDP for All Countries by Income Group") # Provide labels
 ```
 
-![](CBoomhower_CaseStudyUnit6_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+<img src="CBoomhower_CaseStudyUnit6_files/figure-html/unnamed-chunk-22-1.png" title="" alt="" style="display: block; margin: auto;" />
+
+#### **The first boxplot visualization depicts all *GDP.Millions.of.US.Dollars* data by *Income.Group*. However, the data appears heavily right-skewed and large outliers in *High income: OECD* and *Lower middle income* make it difficult to compare each distribution by *Income.Group*.**
+
+#### **For this reason, the second visualization of boxplots is rendered below to show the *GDP.Millions.of.US.Dollars* data after logarithmic transformation. By applying a natural log transformation to the data, the effects of heavy skewness and outliers are removed. This provides a clearer comparison of distributions from one income group to another. The horizontal line through each group's box represents the group's median and the red diamond represents the group's mean. Finally, the individual log transformed GDP values are added, with jitter, to further aid in reviewing differences in spread.**
+
 
 ```r
+## Render ggplot2 boxplot for log-transformed GDP data
 ggplot(data = MergeData1, aes(x=Income.Group, y=log(GDP.Millions.of.US.Dollars), fill=Income.Group)) + # Re-plot log transformed GDP
-    geom_boxplot() + stat_summary(fun.y=mean, geom="point", shape=23, size=3, fill="red") +     
+    geom_boxplot() + stat_summary(fun.y=mean, geom="point", shape=23, size=3, fill="red") +     # Add red mean diamond marker
     geom_jitter(shape=16, position=position_jitter(0.3)) +                                      # Add individual data points with jitter
-    theme(axis.text.x = element_text(angle = 55, hjust = 1, size = 10)) +                       
+    theme(axis.text.x = element_text(angle = 55, hjust = 1, size = 12)) +                       # Adjust X axis label size and position
     xlab("Income Group") + ylab("Log Transformed GDP (Millions of US Dollars)") + ggtitle("Log Transformed GDP for All Countries by Income Group") # Provide labels
 ```
 
-![](CBoomhower_CaseStudyUnit6_files/figure-html/unnamed-chunk-22-2.png)<!-- -->
+<img src="CBoomhower_CaseStudyUnit6_files/figure-html/unnamed-chunk-23-1.png" title="" alt="" style="display: block; margin: auto;" />
 
-<br>
+#### **In examining the log-transformed visualization, it is clear most of the *High income: OECD* group data exceed the remaining groups' data in terms of GDP since *High income: OECD's* first quartile (Q1) location appears to be greater in GDP value than all other groups' Q3 locations (Though *High income: OECD's* Q1 appears to be nearly identical to *Upper middle income's* Q3). That is, 75% of all *High income: OECD* data is greater than at least 75% of all other groups' data.**
+________________________________
 
-### Question 5: Cut the GDP ranking into 5 separate quantile groups. Make a table versus Income.Group. How many countries are lower middle income but among the 38 nations with the highest GDP?
+## Question 5: Cut the GDP ranking into 5 separate quantile groups. Make a table versus Income.Group. How many countries are lower middle income but among the 38 nations with the highest GDP?
+
+#### To split the GDP rankings into 5 separate quantile groups, the *ntile* function is used from the *dplyr* package. A cross-table is then rendered to show quantile group counts by *Income.Group*. Finally, an expression is used to confirm the number of countries that are in both the *Lower middle income* group and highest GDP quantile (1) as shown in the cross-table.
 
 
 ```r
@@ -2231,3 +2266,12 @@ sum(MergeData2[(nrow(MergeData2)-37):nrow(MergeData2),]$Income.Group == "Lower m
 ```
 ## [1] 5
 ```
+
+#### **Based on the newly added quantile groupings, 5 countries from the *Lower middle income* group are among the 38 nations with the highest GDP (quantile 1).**
+________________________________
+
+## Conclusion
+
+#### The country GDP and education data sets from Worldbank.org both provide important information regarding numerous countries throughout the world. By combining these data sets, powerful insights are gained into the relationship between each country's income group classification and GDP ranking. When analyzing these data, it becomes apparant that both data sets do not align perfectly in regards to country codes and relevant data. It is also made clear that *High income: OECD* countries rank higher in GDP than *High income: nonOECD* countries and that 75% of all *High income: OECD* country GDP data exceed at least 75% of each other income group's GDP values. Finally, combining these two data sets also allows for GDP ranking quantiles to be compared to income group classifications. By this means, it is discovered that five countries from the *Lower middle income* group also rank among the top thirty-eight countries with highest GDP. Of course, even with these newly gained insights, there is still much more available for discovery given GDP and education data obtained from Worldbank.org.
+
+<br>
